@@ -11,6 +11,5 @@ spec:
   - port: 8080
     targetPort: 80
     protocol: TCP
-    name: http
   selector:
     run: adobe-nginx

@@ -50,7 +50,7 @@ Follow the below steps to setup and run the coding challenge python program
 2. I'm ignoring about https secure traffic by not minding about ssl certs in this System design.
 3. Has a k8s cluster provisioned in a cloud provider env.
 4. Has push and pull access to a docker registry in a cloud provider env.
-5. You can reach this nginx server from internet on cloud provided public URL and on port 8080 set in k8s `kind: Service`
+5. Your cloud account where k8s cluster lives has required access and resources to create a LoadBalancer in cloud.
 
 ### Highlevel flow
 
@@ -186,3 +186,22 @@ Based on the needs of your application, set only the minimum level of rules in y
       selector:
         run: adobe-nginx
     ```
+5. Code snippet for k8s Ingress yaml
+  ```yaml
+  apiVersion: networking.k8s.io/v1beta1
+  kind: Ingress
+  metadata:
+    name: adobe-nginx
+    namespace: adobe
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+  spec:
+    rules:
+    - http:
+        paths:
+        - backend:
+            serviceName: adobe-nginx
+            servicePort: 8080
+  ```
