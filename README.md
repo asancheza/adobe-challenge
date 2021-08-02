@@ -50,6 +50,7 @@ Follow the below steps to setup and run the coding challenge python program
 2. I'm ignoring about https secure traffic by not minding about ssl certs in this System design.
 3. Has a k8s cluster provisioned in a cloud provider env.
 4. Has push and pull access to a docker registry in a cloud provider env.
+5. You can reach this nginx server from internet on cloud provided public URL and on port 8080 set in k8s `kind: Service`
 
 ### Highlevel flow
 
