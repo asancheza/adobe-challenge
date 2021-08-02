@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adobe-nginx
+  namespace: adobe
+spec:
+  serviceAccountName: adobe
+  selector:
+    matchLabels:
+      run: adobe-nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: adobe-nginx
+    spec:
+      imagePullSecrets:
+      - name: myregistrykey
+      containers:
+      - name: adobe-nginx-app
+        image: "<registry>/<namespace>/adobe-nginx:latest"
+        ports:
+        - containerPort: 80
+        # set resource limits
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

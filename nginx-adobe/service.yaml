@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adobe-nginx
+  namespace: adobe
+  labels:
+    run: adobe-nginx
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    run: adobe-nginx
